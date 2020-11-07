@@ -82,7 +82,7 @@ function main() {
                                zsh-syntax-highlighting strace inotify-tools \
                                virtualbox-host-modules-arch dnsmasq bridge-utils \
                                electrum brasero firefox flameshot brightnessctl \
-                               torbrowser-launcher dmenu
+                               torbrowser-launcher dmenu lxterminal lxappearance
 
 
     arch-chroot /mnt loadkeys ru
