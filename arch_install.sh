@@ -33,7 +33,7 @@ do
 done
 shift $(($OPTIND-1))
 
-if [[ -z $DISK ]] || [[ -z $HOSTNAMEARCH ]]; then
+if [[ -z $DISK ]] || [[ -z $HOSTNAMEARCH ]] || [[ ! -b $DISK ]]; then
     usage
     exit 1
 fi
@@ -65,6 +65,7 @@ function create_fs() {
 }
 
 function main() {
+    wipefs --all --force $DISK
     nvme_detect
     fdisk_start
     create_fs
