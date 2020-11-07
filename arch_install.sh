@@ -129,7 +129,6 @@ EOF
     arch-chroot /mnt passwd $USERNAME
     sed 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' -i /mnt/etc/sudoers
 
-
     umount -R /mnt
     echo
     echo "DONE. YOU CAN REBOOT MACHINE."
