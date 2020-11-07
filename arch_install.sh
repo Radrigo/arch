@@ -38,6 +38,7 @@ if [[ -z $DISK ]] || [[ -z $HOSTNAMEARCH ]]; then
     exit 1
 fi
 
+USERNAME=elpadre
 
 function nvme_detect() {
     if echo $DISK | grep -q nvme; then
@@ -117,6 +118,11 @@ EOF
     arch-chroot /mnt pacman -S xorg-server xorg-apps xorg xterm lightdm \
                                lightdm-gtk-greeter lightdm-gtk-greeter-settings i3-gaps
     arch-chroot /mnt systemctl enable lightdm
+
+    arch-chroot /mnt useradd -m -g users -G wheel -s /bin/zsh $USERNAME
+    echo Set passwd for $USERNAME:
+    arch-chroot /mnt passwd $USERNAME
+    sed 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' -i /mnt/etc/sudoers
 
 
     umount -R /mnt
