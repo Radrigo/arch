@@ -75,23 +75,25 @@ function main() {
     genfstab -L -p -P -t UUID /mnt > /mnt/etc/fstab
 
     PACK_LIST=( 
-                vim wpa_supplicant dhclient efibootmgr grub 
+                xorg-server xorg-apps xorg xterm
+                i3-gaps vim wpa_supplicant dhclient efibootmgr grub 
                 lightdm-gtk-greeter lightdm-gtk-greeter-settings
-                i3-gaps xorg-server xorg-apps xorg xterm lightdm
                 ipcalc bash-completion bc chromium cmatrix 
                 cryptsetup ctags curl deluge deluge-gtk dia 
                 dunst feh sxiv gimp git remmina htop i3lock 
                 i3status leafpad lm_sensors macchanger mpv mutt 
                 pass pcmanfm privoxy proxychains telegram-desktop 
                 tmux tor traceroute autocutsel xsel zenity zsh 
-                zsh-syntax-highlighting strace inotify-tools 
+                lightdm zsh-syntax-highlighting strace inotify-tools 
                 virtualbox-host-modules-arch dnsmasq bridge-utils 
                 electrum brasero firefox flameshot brightnessctl 
                 torbrowser-launcher dmenu lxterminal lxappearance
               )
 
+        arch-chroot /mnt pacman -S $PACK 
+
     for PACK in ${PACK_LIST[@]} ; do
-        arch-chroot /mnt /bin/bash -c "yes | pacman -S $PACK" 
+        arch-chroot /mnt pacman -S $PACK
     done
 
     arch-chroot /mnt loadkeys ru
