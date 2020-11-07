@@ -109,7 +109,7 @@ EOF
 
 
     umount -R /mnt
-    reboot
+    echo "You can reboot machine"
 }
 
 function fdisk_start() {
