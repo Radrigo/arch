@@ -90,11 +90,7 @@ function main() {
                 torbrowser-launcher dmenu lxterminal lxappearance
               )
 
-        arch-chroot /mnt pacman -S $PACK 
-
-    for PACK in ${PACK_LIST[@]} ; do
-        arch-chroot /mnt pacman -S $PACK
-    done
+    arch-chroot /mnt pacman -S ${PACK[@]}
 
     arch-chroot /mnt loadkeys ru
 
