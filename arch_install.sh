@@ -106,6 +106,7 @@ EOF
 127.0.1.1       $HOSTNAMEARCH
 EOF
 
+    echo Set passwd for ROOT
     arch-chroot /mnt passwd
 
     sed 's/^\(HOOKS=.*\)fsck\(.*$\)/\1keymap\2/' -i /mnt/etc/mkinitcpio.conf
