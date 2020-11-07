@@ -88,6 +88,8 @@ function main() {
                 virtualbox-host-modules-arch dnsmasq bridge-utils 
                 electrum brasero firefox flameshot brightnessctl 
                 torbrowser-launcher dmenu lxterminal lxappearance
+                pulseaudio pulseaudio-alsa pavucontrol alsa-lib
+                alsa-utils
               )
 
     arch-chroot /mnt pacman -S ${PACK_LIST[@]}
