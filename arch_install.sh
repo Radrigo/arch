@@ -80,8 +80,10 @@ function main() {
                                pass pcmanfm privoxy proxychains telegram-desktop \
                                tmux tor traceroute autocutsel xsel zenity zsh \
                                zsh-syntax-highlighting strace inotify-tools \
-                               virtualbox dnsmasq bridge-utils electrum brasero \
-                               firefox flameshot brightnessctl
+                               virtualbox-host-modules-arch dnsmasq bridge-utils \
+                               electrum brasero firefox flameshot brightnessctl \
+                               torbrowser-launcher dmenu
+
 
     arch-chroot /mnt loadkeys ru
 
@@ -118,7 +120,8 @@ EOF
 
 
     umount -R /mnt
-    echo "You can reboot machine"
+    echo
+    echo "DONE. YOU CAN REBOOT MACHINE."
 }
 
 function fdisk_start() {
