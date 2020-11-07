@@ -96,7 +96,7 @@ EOF
 
     arch-chroot /mnt passwd
 
-    sed 's/^\(MODULES=.*\)fsck\(.*$\)/\1keymap\2/' -i /mnt/etc/mkinitcpio.conf
+    sed 's/^\(HOOKS=.*\)fsck\(.*$\)/\1keymap\2/' -i /mnt/etc/mkinitcpio.conf
     arch-chroot /mnt mkinitcpio -p linux
 
     arch-chroot /mnt mkdir -p /boot/grub
