@@ -75,12 +75,12 @@ function main() {
     genfstab -L -p -P -t UUID /mnt > /mnt/etc/fstab
 
     PACK_LIST=( 
-                xorg-server xorg-apps xorg xterm
-                i3-gaps vim wpa_supplicant dhclient efibootmgr grub 
+                xorg-server xorg-apps xorg vim
+                i3-gaps wpa_supplicant dhclient efibootmgr grub 
                 lightdm-gtk-greeter lightdm-gtk-greeter-settings
-                ipcalc bash-completion bc chromium cmatrix 
-                cryptsetup ctags curl deluge deluge-gtk dia 
-                dunst feh sxiv gimp git remmina htop i3lock 
+                ipcalc bash-completion bc chromium cmatrix zip
+                cryptsetup ctags curl deluge deluge-gtk dia unzip
+                dunst feh sxiv gimp git remmina htop i3lock xterm
                 i3status leafpad lm_sensors macchanger mpv mutt 
                 pass pcmanfm privoxy proxychains telegram-desktop 
                 tmux tor traceroute autocutsel xsel zenity zsh 
