@@ -72,7 +72,17 @@ function main() {
 
     genfstab -L -p -P -t UUID /mnt >> /mnt/etc/fstab
 
-    arch-chroot /mnt pacman -S vim wpa_supplicant dhclient efibootmgr grub
+    arch-chroot /mnt pacman -S vim wpa_supplicant dhclient efibootmgr grub \
+                               polybar bash-completion bc chromium cmatrix \
+                               cryptsetup ctags curl deluge deluge-gtk dia \
+                               dunst feh sxiv gimp git remmina htop i3lock \
+                               i3status leafpad lm_sensors macchanger mpv mutt \
+                               mycli pass pcmanfm privoxy proxychains \
+                               telegram-desktop telnet tmux tor traceroute \
+                               xdotool xmacro xsel zenity zsh zsh-syntax-highlighting \
+                               ipcalc strace inotify-tools virtualbox dnsmasq \
+                               bridge-utils p7zip-full electrum brasero \
+                               firefox-esr flameshot brightnessctl
 
     arch-chroot /mnt loadkeys ru
 
