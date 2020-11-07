@@ -71,7 +71,7 @@ function main() {
 
     pacstrap /mnt base linux linux-firmware base-devel
 
-    genfstab -L -p -P -t UUID /mnt >> /mnt/etc/fstab
+    genfstab -L -p -P -t UUID /mnt > /mnt/etc/fstab
 
     arch-chroot /mnt pacman -S vim wpa_supplicant dhclient efibootmgr grub \
                                ipcalc bash-completion bc chromium cmatrix \
