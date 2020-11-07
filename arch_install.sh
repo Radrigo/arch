@@ -95,13 +95,19 @@ EOF
 EOF
 
     arch-chroot /mnt passwd
+
+    sed 's/^\(MODULES=.*\)fsck\(.*$\)/\1keymap\2/' -i /mnt/etc/mkinitcpio.conf
     arch-chroot /mnt mkinitcpio -p linux
+
     arch-chroot /mnt mkdir -p /boot/grub
+    sed 's/^\(GRUB_CMDLINE_LINUX_DEFAULT=.*\)"$/\1 acpi_backlight=vendor"/' -i /mnt/etc/default/grub
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
     arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
     arch-chroot /mnt pacman -S xorg-server xorg-apps xorg xterm lightdm \
                                lightdm-gtk-greeter lightdm-gtk-greeter-settings i3-gaps
     arch-chroot /mnt systemctl enable lightdm
+
+
     umount -R /mnt
     reboot
 }
