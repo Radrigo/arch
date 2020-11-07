@@ -73,7 +73,10 @@ function main() {
 
     genfstab -L -p -P -t UUID /mnt > /mnt/etc/fstab
 
-    PACK_LIST=( vim wpa_supplicant dhclient efibootmgr grub 
+    PACK_LIST=( 
+                vim wpa_supplicant dhclient efibootmgr grub 
+                lightdm-gtk-greeter lightdm-gtk-greeter-settings
+                i3-gaps xorg-server xorg-apps xorg xterm lightdm
                 ipcalc bash-completion bc chromium cmatrix 
                 cryptsetup ctags curl deluge deluge-gtk dia 
                 dunst feh sxiv gimp git remmina htop i3lock 
@@ -120,8 +123,6 @@ EOF
     sed 's/^\(GRUB_CMDLINE_LINUX_DEFAULT=.*\)"$/\1 acpi_backlight=vendor"/' -i /mnt/etc/default/grub
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
     arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-    arch-chroot /mnt pacman -S xorg-server xorg-apps xorg xterm lightdm \
-                               lightdm-gtk-greeter lightdm-gtk-greeter-settings i3-gaps
     arch-chroot /mnt systemctl enable lightdm
 
     arch-chroot /mnt useradd -m -g users -G wheel -s /bin/zsh $USERNAME
