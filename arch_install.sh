@@ -41,13 +41,13 @@ fi
 
 function nvme_detect() {
     if echo $DISK | grep -q nvme; then
-        FDISK_P_BOOT="${DISK##*/}p1"
-        FDISK_P_SWAP="${DISK##*/}p2"
-        FDISK_P_ROOT="${DISK##*/}p3"
+        FDISK_P_BOOT="${DISK}p1"
+        FDISK_P_SWAP="${DISK}p2"
+        FDISK_P_ROOT="${DISK}p3"
     else
-        FDISK_P_BOOT="${DISK##*/}1"
-        FDISK_P_SWAP="${DISK##*/}2"
-        FDISK_P_ROOT="${DISK##*/}3"
+        FDISK_P_BOOT="${DISK}1"
+        FDISK_P_SWAP="${DISK}2"
+        FDISK_P_ROOT="${DISK}3"
     fi
 }
 
