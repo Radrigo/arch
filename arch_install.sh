@@ -106,13 +106,13 @@ EOF
 127.0.1.1       $HOSTNAMEARCH
 EOF
 
-    echo Set passwd for ROOT
+    echo SET PASSWD FOR ROOT
     arch-chroot /mnt passwd
 
     sed 's/^\(HOOKS=.*\)fsck\(.*$\)/\1keymap\2/' -i /mnt/etc/mkinitcpio.conf
     arch-chroot /mnt mkinitcpio -p linux
 
-    arch-chroot /mnt mkdir -p /boot/grub
+    mkdir -p /mnt/boot/grub
     sed 's/^\(GRUB_CMDLINE_LINUX_DEFAULT=.*\)"$/\1 acpi_backlight=vendor"/' -i /mnt/etc/default/grub
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
     arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
@@ -121,7 +121,7 @@ EOF
     arch-chroot /mnt systemctl enable lightdm
 
     arch-chroot /mnt useradd -m -g users -G wheel -s /bin/zsh $USERNAME
-    echo Set passwd for $USERNAME:
+    echo SET PASSWD FOR $USERNAME:
     arch-chroot /mnt passwd $USERNAME
     sed 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' -i /mnt/etc/sudoers
 
