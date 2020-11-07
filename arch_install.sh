@@ -88,7 +88,7 @@ EOF
     arch-chroot /mnt timedatectl status
 
     echo "$HOSTNAMEARCH" > /mnt/etc/hostname
-    cat <<EOF >&1
+    cat <<EOF >/mnt/etc/hosts
 127.0.0.1       localhost
 ::1             localhost
 127.0.1.1       $HOSTNAMEARCH
@@ -99,7 +99,7 @@ EOF
     arch-chroot /mnt mkdir -p /boot/grub
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
     arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-    arch-chroot /mnt pacman -S xorg-server xorg-xinit xorg-server-utils xterm lightdm \
+    arch-chroot /mnt pacman -S xorg-server xorg-apps xorg xterm lightdm \
                                lightdm-gtk-greeter lightdm-gtk-greeter-settings i3-gaps
     arch-chroot /mnt systemctl enable lightdm
     umount -R /mnt
