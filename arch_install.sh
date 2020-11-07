@@ -73,13 +73,13 @@ function main() {
     genfstab -L -p -P -t UUID /mnt >> /mnt/etc/fstab
 
     arch-chroot /mnt pacman -S vim wpa_supplicant dhclient efibootmgr grub \
-                               polybar bash-completion bc chromium cmatrix \
+                               ipcalc bash-completion bc chromium cmatrix \
                                cryptsetup ctags curl deluge deluge-gtk dia \
                                dunst feh sxiv gimp git remmina htop i3lock \
                                i3status leafpad lm_sensors macchanger mpv mutt \
                                pass pcmanfm privoxy proxychains telegram-desktop \
                                tmux tor traceroute autocutsel xsel zenity zsh \
-                               zsh-syntax-highlighting ipcalc strace inotify-tools \
+                               zsh-syntax-highlighting strace inotify-tools \
                                virtualbox dnsmasq bridge-utils electrum brasero \
                                firefox flameshot brightnessctl
 
