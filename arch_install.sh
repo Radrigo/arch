@@ -90,7 +90,7 @@ function main() {
                 torbrowser-launcher dmenu lxterminal lxappearance
                 pulseaudio pulseaudio-alsa pavucontrol alsa-lib
                 alsa-utils powertop terminus-font-otb vlc wget
-                xautolock dosfstool
+                xautolock dosfstools
               )
 
     arch-chroot /mnt pacman -S ${PACK_LIST[@]}
