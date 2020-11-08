@@ -89,7 +89,7 @@ function main() {
                 electrum brasero firefox flameshot brightnessctl 
                 torbrowser-launcher dmenu lxterminal lxappearance
                 pulseaudio pulseaudio-alsa pavucontrol alsa-lib
-                alsa-utils
+                alsa-utils powertop
               )
 
     arch-chroot /mnt pacman -S ${PACK_LIST[@]}
