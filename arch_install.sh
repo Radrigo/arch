@@ -85,13 +85,13 @@ function main() {
                 pass pcmanfm privoxy proxychains telegram-desktop 
                 tmux tor traceroute autocutsel xsel zenity zsh 
                 lightdm zsh-syntax-highlighting strace inotify-tools 
-                virtualbox-host-modules-arch dnsmasq bridge-utils 
+                virtualbox dnsmasq bridge-utils awesome-terminal-fonts
                 electrum brasero firefox flameshot brightnessctl 
                 torbrowser-launcher dmenu lxterminal lxappearance
                 pulseaudio pulseaudio-alsa pavucontrol alsa-lib
                 alsa-utils powertop terminus-font-otb vlc wget
                 xautolock dosfstools papirus-icon-theme xcompmgr
-                awesome-terminal-fonts ranger iwd
+                ranger iwd
               )
 
     arch-chroot /mnt pacman -S ${PACK_LIST[@]}
