@@ -91,7 +91,7 @@ function main() {
                 pulseaudio pulseaudio-alsa pavucontrol alsa-lib
                 alsa-utils powertop terminus-font-otb vlc wget
                 xautolock dosfstools papirus-icon-theme xcompmgr
-                awesome-terminal-fonts ranger
+                awesome-terminal-fonts ranger iwd
               )
 
     arch-chroot /mnt pacman -S ${PACK_LIST[@]}
