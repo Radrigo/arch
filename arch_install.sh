@@ -11,18 +11,20 @@ function usage ()
 {
     echo \
 "Usage:
-    $(basename $0) -d /dev/XXX -n HOSTNAME[-h] [-v]
+    $(basename $0) -u USERNAME -d /dev/XXX -n HOSTNAME[-h] [-v]
 
 Options:
+    -u USERNAME Create USER
     -d DISK     Set disk for install
     -n HOSTNAME Set hostname for system
     -h          Display this message
     -v          Display script version"
 }
 
-while getopts "d:n:hv" opt
+while getopts "u:d:n:hv" opt
 do
     case $opt in
+        u) USER_=${OPTARG} ;;
         n) HOSTNAMEARCH=${OPTARG} ;;
         d) DISK=${OPTARG} ;;
         h) usage; exit 0 ;;
@@ -33,12 +35,12 @@ do
 done
 shift $(($OPTIND-1))
 
-if [[ -z $DISK ]] || [[ -z $HOSTNAMEARCH ]] || [[ ! -b $DISK ]]; then
+if [[ -z $DISK ]] || [[ -z $HOSTNAMEARCH ]] || [[ ! -b $DISK ]] || [[ -z $USER_ ]]; then
     usage
     exit 1
 fi
 
-USERNAME=elpadre
+USERNAME=$USER_
 
 function nvme_detect() {
     if echo $DISK | grep -q nvme; then
@@ -74,27 +76,28 @@ function main() {
 
     genfstab -L -p -P -t UUID /mnt > /mnt/etc/fstab
 
-    PACK_LIST=( 
-                xorg-server xorg-apps xorg vim
-                i3-gaps wpa_supplicant dhclient efibootmgr grub 
-                lightdm-gtk-greeter lightdm-gtk-greeter-settings
-                ipcalc bash-completion bc chromium cmatrix zip
-                cryptsetup ctags curl deluge deluge-gtk dia unzip
-                dunst feh sxiv gimp git remmina htop i3lock xterm
-                i3status leafpad lm_sensors macchanger mpv mutt 
-                pass pcmanfm privoxy proxychains telegram-desktop 
-                tmux tor traceroute autocutsel xsel zenity zsh 
-                lightdm zsh-syntax-highlighting strace inotify-tools 
-                virtualbox dnsmasq bridge-utils awesome-terminal-fonts
-                electrum brasero firefox flameshot brightnessctl 
-                torbrowser-launcher dmenu lxterminal lxappearance
-                pulseaudio pulseaudio-alsa pavucontrol alsa-lib
-                alsa-utils powertop terminus-font-otb vlc wget
-                xautolock dosfstools papirus-icon-theme xcompmgr
-                ranger iwd scrot imagemagick
-              )
-
-    arch-chroot /mnt pacman -S ${PACK_LIST[@]}
+    # PACK_LIST=( 
+    #             xorg-server xorg-apps xorg vim
+    #             i3-gaps wpa_supplicant dhclient efibootmgr grub 
+    #             lightdm-gtk-greeter lightdm-gtk-greeter-settings
+    #             ipcalc bash-completion bc chromium cmatrix zip
+    #             cryptsetup ctags curl deluge deluge-gtk dia unzip
+    #             dunst feh sxiv gimp git remmina htop i3lock xterm
+    #             i3status leafpad lm_sensors macchanger mpv mutt 
+    #             pass pcmanfm privoxy proxychains telegram-desktop 
+    #             tmux tor traceroute autocutsel xsel zenity zsh 
+    #             lightdm zsh-syntax-highlighting strace inotify-tools 
+    #             virtualbox dnsmasq bridge-utils awesome-terminal-fonts
+    #             electrum brasero firefox flameshot brightnessctl 
+    #             torbrowser-launcher dmenu lxterminal lxappearance
+    #             pulseaudio pulseaudio-alsa pavucontrol alsa-lib
+    #             alsa-utils powertop terminus-font-otb vlc wget
+    #             xautolock dosfstools papirus-icon-theme xcompmgr
+    #             ranger iwd scrot imagemagick
+    #           )
+    #
+    # arch-chroot /mnt pacman -S ${PACK_LIST[@]}
+    arch-chroot /mnt pacman -S grub efibootmgr vim zsh git
 
     arch-chroot /mnt loadkeys ru
 
@@ -115,6 +118,7 @@ EOF
 ::1             localhost
 127.0.1.1       $HOSTNAMEARCH
 EOF
+    echo '\efi\arch\grubx64.efi' > /mnt/boot/startup.nsh
 
     echo SET PASSWD FOR ROOT
     arch-chroot /mnt passwd
@@ -126,7 +130,6 @@ EOF
     sed 's/^\(GRUB_CMDLINE_LINUX_DEFAULT=.*\)"$/\1 acpi_backlight=vendor"/' -i /mnt/etc/default/grub
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
     arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-    arch-chroot /mnt systemctl enable lightdm
 
     arch-chroot /mnt useradd -m -g users -G wheel -s /bin/zsh $USERNAME
     echo SET PASSWD FOR $USERNAME:
