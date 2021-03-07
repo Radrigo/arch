@@ -97,7 +97,7 @@ function main() {
     #           )
     #
     # arch-chroot /mnt pacman -S ${PACK_LIST[@]}
-    arch-chroot /mnt pacman -S grub efibootmgr vim zsh
+    arch-chroot /mnt pacman -S grub efibootmgr vim zsh git
 
     arch-chroot /mnt loadkeys ru
 
