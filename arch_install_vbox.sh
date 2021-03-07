@@ -11,18 +11,20 @@ function usage ()
 {
     echo \
 "Usage:
-    $(basename $0) -d /dev/XXX -n HOSTNAME[-h] [-v]
+    $(basename $0) -u USERNAME -d /dev/XXX -n HOSTNAME[-h] [-v]
 
 Options:
+    -u USERNAME Create USER
     -d DISK     Set disk for install
     -n HOSTNAME Set hostname for system
     -h          Display this message
     -v          Display script version"
 }
 
-while getopts "d:n:hv" opt
+while getopts "u:d:n:hv" opt
 do
     case $opt in
+        u) USER_=${OPTARG} ;;
         n) HOSTNAMEARCH=${OPTARG} ;;
         d) DISK=${OPTARG} ;;
         h) usage; exit 0 ;;
@@ -33,12 +35,12 @@ do
 done
 shift $(($OPTIND-1))
 
-if [[ -z $DISK ]] || [[ -z $HOSTNAMEARCH ]] || [[ ! -b $DISK ]]; then
+if [[ -z $DISK ]] || [[ -z $HOSTNAMEARCH ]] || [[ ! -b $DISK ]] || [[ -z $USER_ ]]; then
     usage
     exit 1
 fi
 
-USERNAME=elpadre
+USERNAME=$USER_
 
 function nvme_detect() {
     if echo $DISK | grep -q nvme; then
