@@ -76,28 +76,28 @@ function main() {
 
     genfstab -L -p -P -t UUID /mnt > /mnt/etc/fstab
 
-    PACK_LIST=( 
-                xorg-server xorg-apps xorg vim
-                i3-gaps wpa_supplicant dhclient efibootmgr grub 
-                lightdm-gtk-greeter lightdm-gtk-greeter-settings
-                ipcalc bash-completion bc chromium cmatrix zip
-                cryptsetup ctags curl deluge deluge-gtk dia unzip
-                dunst feh sxiv gimp git remmina htop i3lock xterm
-                i3status leafpad lm_sensors macchanger mpv mutt 
-                pass pcmanfm privoxy proxychains telegram-desktop 
-                tmux tor traceroute autocutsel xsel zenity zsh 
-                lightdm zsh-syntax-highlighting strace inotify-tools 
-                virtualbox dnsmasq bridge-utils awesome-terminal-fonts
-                electrum brasero firefox flameshot brightnessctl 
-                torbrowser-launcher dmenu lxterminal lxappearance
-                pulseaudio pulseaudio-alsa pavucontrol alsa-lib
-                alsa-utils powertop terminus-font-otb vlc wget
-                xautolock dosfstools papirus-icon-theme xcompmgr
-                ranger iwd scrot imagemagick
-              )
-
+    # PACK_LIST=( 
+    #             xorg-server xorg-apps xorg vim
+    #             i3-gaps wpa_supplicant dhclient efibootmgr grub 
+    #             lightdm-gtk-greeter lightdm-gtk-greeter-settings
+    #             ipcalc bash-completion bc chromium cmatrix zip
+    #             cryptsetup ctags curl deluge deluge-gtk dia unzip
+    #             dunst feh sxiv gimp git remmina htop i3lock xterm
+    #             i3status leafpad lm_sensors macchanger mpv mutt 
+    #             pass pcmanfm privoxy proxychains telegram-desktop 
+    #             tmux tor traceroute autocutsel xsel zenity zsh 
+    #             lightdm zsh-syntax-highlighting strace inotify-tools 
+    #             virtualbox dnsmasq bridge-utils awesome-terminal-fonts
+    #             electrum brasero firefox flameshot brightnessctl 
+    #             torbrowser-launcher dmenu lxterminal lxappearance
+    #             pulseaudio pulseaudio-alsa pavucontrol alsa-lib
+    #             alsa-utils powertop terminus-font-otb vlc wget
+    #             xautolock dosfstools papirus-icon-theme xcompmgr
+    #             ranger iwd scrot imagemagick
+    #           )
+    #
     # arch-chroot /mnt pacman -S ${PACK_LIST[@]}
-    arch-chroot /mnt pacman -S grub efibootmgr vim
+    arch-chroot /mnt pacman -S grub efibootmgr vim zsh
 
     arch-chroot /mnt loadkeys ru
 
@@ -130,8 +130,6 @@ EOF
     sed 's/^\(GRUB_CMDLINE_LINUX_DEFAULT=.*\)"$/\1 acpi_backlight=vendor"/' -i /mnt/etc/default/grub
     arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
     arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-    # arch-chroot /mnt grub-install --efi-directory=/boot --bootloader-id=GRUB
-    # arch-chroot /mnt systemctl enable lightdm
 
     arch-chroot /mnt useradd -m -g users -G wheel -s /bin/zsh $USERNAME
     echo SET PASSWD FOR $USERNAME:
