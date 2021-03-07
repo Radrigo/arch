@@ -94,7 +94,8 @@ function main() {
                 ranger iwd scrot imagemagick
               )
 
-    arch-chroot /mnt pacman -S ${PACK_LIST[@]}
+    # arch-chroot /mnt pacman -S ${PACK_LIST[@]}
+    arch-chroot /mnt pacman -S grub efibootmgr vim
 
     arch-chroot /mnt loadkeys ru
 
@@ -115,6 +116,7 @@ EOF
 ::1             localhost
 127.0.1.1       $HOSTNAMEARCH
 EOF
+    echo '\efi\arch\grubx64.efi' > /mnt/boot/startup.nsh
 
     echo SET PASSWD FOR ROOT
     arch-chroot /mnt passwd
@@ -124,10 +126,10 @@ EOF
 
     mkdir -p /mnt/boot/grub
     sed 's/^\(GRUB_CMDLINE_LINUX_DEFAULT=.*\)"$/\1 acpi_backlight=vendor"/' -i /mnt/etc/default/grub
-    # arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
-    # arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
-    arch-chroot /mnt grub-install --efi-directory=/boot --bootloader-id=GRUB
-    arch-chroot /mnt systemctl enable lightdm
+    arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
+    arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+    # arch-chroot /mnt grub-install --efi-directory=/boot --bootloader-id=GRUB
+    # arch-chroot /mnt systemctl enable lightdm
 
     arch-chroot /mnt useradd -m -g users -G wheel -s /bin/zsh $USERNAME
     echo SET PASSWD FOR $USERNAME:
